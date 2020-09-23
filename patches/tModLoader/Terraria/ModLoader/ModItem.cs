@@ -84,24 +84,16 @@ namespace Terraria.ModLoader
 		/// </summary>
 		public virtual bool CloneNewInstances => false;
 
-		// Should we keep both of these methods?
-
 		/// <summary>
 		/// Returns a clone of this ModItem. 
 		/// Allows you to decide which fields of your ModItem class are copied over when an item stack is split or something similar happens. 
 		/// By default this will return a memberwise clone; you will want to override this if your ModItem contains object references. 
 		/// Since several ModItem class fields are also set by the default implementation of this method, you'll most likely want to call base.Clone() as the first statement of your override.
 		/// </summary>
-		public virtual ModItem Clone() => (ModItem)MemberwiseClone();
-
-		/// <summary>
-		/// Create a copy of this instanced ModItem. Called when an item is cloned.
-		/// Defaults to NewInstance(item)
-		/// </summary>
 		/// <param name="item">The item being cloned</param>
 		/// <param name="itemClone">The new item</param>
 		public virtual ModItem Clone(Item item) {
-			ModItem clone = Clone();
+			ModItem clone = (ModItem)MemberwiseClone();
 			clone.item = item;
 			return clone;
 		}
