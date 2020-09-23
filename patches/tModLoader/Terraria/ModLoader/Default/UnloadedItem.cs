@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader.IO;
 
@@ -64,8 +65,8 @@ namespace Terraria.ModLoader.Default
 
 		public override bool CloneNewInstances => true;
 
-		public override ModItem Clone() {
-			var clone = (UnloadedItem)base.Clone();
+		public override ModItem Clone(Item item) {
+			var clone = (UnloadedItem)base.Clone(item);
 			clone.data = (TagCompound)data?.Clone();
 			return clone;
 		}
