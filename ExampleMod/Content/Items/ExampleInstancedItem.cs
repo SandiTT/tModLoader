@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,7 +16,7 @@ namespace ExampleMod.Content.Items
 		public Color color;
 
 		public ExampleInstancedItem() {
-			color = Main.hslToRgb(Main.rand.NextFloat(), 1f, 0.5f);
+			color = Main.hslToRgb(Main.rand.NextFloat(), 1f, 0.7f);
 		}
 
 		public override void SetStaticDefaults() {
@@ -42,6 +42,12 @@ namespace ExampleMod.Content.Items
 		public override void AddRecipes() {
 			CreateRecipe()
 				.AddIngredient<ExampleItem>(10)
+				.AddOnCraftCallback((recipe, item) => {
+					ExampleInstancedItem craftedItem = (ExampleInstancedItem)item.modItem;
+					ExampleInstancedItem recipeItem = (ExampleInstancedItem)recipe.createItem.modItem;
+
+					Utils.Swap(ref craftedItem.color, ref recipeItem.color);
+				})
 				.Register();
 		}
 	}
